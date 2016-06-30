@@ -7,7 +7,7 @@ module.exports = {
 	context: __dirname,
 	debug:   false,
 	devtool: false,
-	entry:   ["../src/client"],
+	entry:   ["../app/App.js"],
 	output:  {
 		path:          path.join(__dirname, "../static/dist"),
 		filename:      "client.js",
@@ -22,21 +22,27 @@ module.exports = {
 	],
 	module:  {
 		loaders: [
-			{test: /\.json$/, loaders: ["json"]}
+    {
+                test: /\.scss$/,
+                loaders: ["style", "css", "sass"]
+            },
+            {
+                test: /\.css$/,
+                loader: 'style-loader!css-loader'
+            },
+			{test: /\.json$/, loaders: ["json"]},
+      {test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff"},
+            {test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff"},
+            {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream"},
+            {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file"},
+            {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml"}
 		],
 		postLoaders: [
 			{test: /\.js$/, loaders: ["babel?presets[]=es2015&presets[]=stage-0&presets[]=react"], exclude: /node_modules/}
 		],
 		noParse: /\.min\.js/
 	},
-	resolve: {
-		modulesDirectories: [
-			"src",
-			"node_modules",
-			"web_modules"
-		],
-		extensions: ["", ".json", ".js"]
-	},
+
 	node:    {
 		__dirname: true,
 		fs:        'empty'

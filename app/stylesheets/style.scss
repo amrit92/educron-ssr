@@ -1,0 +1,139 @@
+@import "richText";
+@import "./variables";
+@import "./mixins";
+@import "./partials/margin";
+@import "./partials/text";
+@import "./partials/buttons";
+@import "./partials/header";
+@import "./partials/loading";
+@import "./pages/post_lists";
+@import "./pages/universities_list";
+
+@mixin placeholder($selector, $color) {
+  #{$selector}::-webkit-input-placeholder {
+    color: $color;
+    transition: opacity 250ms ease-in-out;
+  }
+  #{$selector}::-moz-placeholder {
+    color: $color;
+    transition: opacity 250ms ease-in-out;
+  }
+  #{$selector}:-ms-input-placeholder {
+    color: $color;
+    transition: opacity 250ms ease-in-out;
+  }
+  #{$selector}:focus::-webkit-input-placeholder {
+    color: lighten($color,10)
+  }
+  #{$selector}:focus::-moz-placeholder {
+    color: lighten($color,10)
+  }
+  #{$selector}:focus:-ms-input-placeholder {
+    color: lighten($color,10)
+  }
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: #fafafa;
+  font-size: 14px;
+}
+
+.bg-white {
+  background: #ffffff;
+  padding: 30px 30px;
+  position: relative;
+  //min-height: 90%;
+  h1.title{
+    color: #595959;
+    font-weight: 400;
+    font-family: 'Raleway';
+    font-size: 20px;
+    margin-top: 0px;
+    margin-bottom: 20px;
+  }
+}
+
+.form-control {
+  border: 1px solid #ddd;
+  border-radius: 0px;
+  box-shadow: none;
+  font-size: 14px;
+  &:focus {
+    box-shadow: none;
+  }
+}
+//@include placeholder('input', #595959);
+
+i[class*="icon-"]{
+  top: 1px;
+  position: relative;
+}
+
+.form {
+  .control-label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #727272;
+    margin-bottom: 10px;
+    font-weight: 400;
+  }
+  .has-error{
+    .form-control{
+      border-color: $bg-primary-color;
+      &:focus{
+        border-color: $bg-primary-color;
+      }
+    }
+  }
+  .form-control {
+    &:focus{
+      box-shadow: none;
+      border: 1px solid #dddddd;
+    }
+  }
+  @include placeholder('.form-control', #c7c7c7);
+
+}
+
+.loading {
+  box-sizing: border-box;
+  width: 48px;
+  height: 48px;
+  margin: 20px auto 0 auto;
+
+  -webkit-animation: spinner 1s ease infinite;
+  -moz-animation: spinner 1s ease infinite;
+  animation: spinner 1s ease infinite;
+
+  border: 8px solid rgba(196, 196, 196, .75);
+  border-right-color: transparent;
+  border-radius: 50%;
+}
+
+@keyframes spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg)
+  }
+}
+
+@-webkit-keyframes spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
