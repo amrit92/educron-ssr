@@ -5,7 +5,6 @@ import ReactTypeahead from 'react-typeahead';
 import CustomTypeaheadList from '../../CustomTypeaheadList'
 import Autosuggest from 'react-autosuggest';
 import { getSuggestions, getSuggestionValue, renderSuggestion } from '../../helpers/AutosuggestHelper';
-import autosuggestTheme from '../../../stylesheets/_autosuggest.scss';
 import { hashHistory } from 'react-router';
 
 export default class UniversityView extends Component {

@@ -19,9 +19,9 @@ export default class AppMaster extends Component {
     }
 
     componentDidUpdate() {
-        // if (!this.props.auth.guest && !this.props.auth.profile.updated_at) {
-        //     this.props.getProfile();
-        // }
+        if (!this.props.auth.guest && !this.props.auth.profile.updated_at) {
+            this.props.getProfile();
+        }
     }
 
     componentDidMount() {
