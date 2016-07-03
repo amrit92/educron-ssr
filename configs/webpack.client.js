@@ -1,5 +1,7 @@
 var webpack = require("webpack");
 var path = require("path");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const extractCSS = new ExtractTextPlugin('client.css');
 
 module.exports = {
 	target:  "web",
@@ -18,18 +20,12 @@ module.exports = {
 		new webpack.DefinePlugin({"process.env": {NODE_ENV: '"production"'}}),
 		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurenceOrderPlugin(),
-		new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})
+		new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}),
+    extractCSS
 	],
 	module:  {
 		loaders: [
-    {
-                test: /\.scss$/,
-                loaders: ["style", "css", "sass"]
-            },
-            {
-                test: /\.css$/,
-                loader: 'style-loader!css-loader'
-            },
+      {test: /\.scss$/i, loader: extractCSS.extract(['css','sass'])},
 			{test: /\.json$/, loaders: ["json"]},
       {test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff"},
             {test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff"},

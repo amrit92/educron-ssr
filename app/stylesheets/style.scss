@@ -8,6 +8,7 @@
 @import "./partials/loading";
 @import "./pages/post_lists";
 @import "./pages/universities_list";
+@import "autosuggest";
 
 @mixin placeholder($selector, $color) {
   #{$selector}::-webkit-input-placeholder {

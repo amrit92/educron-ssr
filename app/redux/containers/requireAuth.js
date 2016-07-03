@@ -1,9 +1,11 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {pushState, hashHistory} from 'react-router';
+import {pushState, hashHistory, browserHistory} from 'react-router';
 import {checkToken} from '../actions/AuthAction';
 import Auth from '../../api/auth/index';
+import configureStore from "../store/configureStore";
+
 
 export const REDIRECT_IF_GUEST = 'redirect if guest';
 export const REDIRECT_IF_AUTHENTICATED = 'redirect if authenticated';
@@ -20,6 +22,7 @@ export function requireAuth(Component, redirectCheck = REDIRECT_IF_GUEST, redire
         constructor() {
             super(...arguments);
             this.checkTokenInterval = '';
+            let cv;
         }
 
         checkAuth(guest) {
@@ -27,7 +30,7 @@ export function requireAuth(Component, redirectCheck = REDIRECT_IF_GUEST, redire
                 case REDIRECT_IF_GUEST:
                     if (guest) {
                         let redirectAfterLogin = this.props.location.pathname;
-                        hashHistory.push(`${redirect}?next=${redirectAfterLogin}`);
+                        browserHistory.push(`${redirect}?next=${redirectAfterLogin}`);
                     }
                     break;
                 case REDIRECT_IF_AUTHENTICATED:
@@ -36,17 +39,21 @@ export function requireAuth(Component, redirectCheck = REDIRECT_IF_GUEST, redire
                         if (nextUrl) {
                             redirect = nextUrl;
                         }
-                        hashHistory.push(redirect);
+                        browserHistory.push(redirect);
                     }
             }
         }
 
         componentDidUpdate() {
-            this.checkAuth(this.props.guest);
+            // this.checkAuth(this.props.guest);
+            if(this.props.rehydrated){
+              this.checkAuth(this.props.guest);
+            }
         }
 
         componentDidMount() {
-            this.checkAuth(this.props.guest);
+            // this.checkAuth(this.props.guest);
+            this.afterload();
         }
 
         render() {
@@ -65,10 +72,21 @@ export function requireAuth(Component, redirectCheck = REDIRECT_IF_GUEST, redire
                 </div>
             )
         }
+
+        afterload(){
+          let pv = this.cv;
+          this.cv = configureStore().getState().rehydrated;
+
+          if(pv!=this.cv){
+            this.checkAuth(this.props.guest);
+          }
+
+        }
     }
 
     const mapStateToProps = (state)=>({
-        guest: state.auth.authenticated.guest
+        guest: state.auth.authenticated.guest,
+        rehydrated: state.auth.rehydrated
     });
 
     const mapDispatchToProps = (dispatch)=>({

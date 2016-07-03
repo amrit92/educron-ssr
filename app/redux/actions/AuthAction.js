@@ -21,14 +21,26 @@ export const AUTH_LOGOUT = 'auth logout'
  */
 export function authLogin(email, password) {
     return (dispatch)=> {
-        dispatch({
+
+        Auth.login(email, password).then(function(result){
+          if(result){
+            dispatch({
             type: AUTH_LOGIN,
             AWAIT_MARKER,
             payload: {
-                userLogin: Auth.login(email, password),
-                forumLogin: Auth.forumLogin(email, password)
+              userLogin: result,
+              forumLogin: Auth.forumLogin(email, password)
             }
-        });
+            });
+          }
+        else{
+            // oops
+            console.log("oops")
+        }
+        })
+
+          
+        
     }
 }
 
@@ -67,26 +79,53 @@ export function getProfile() {
     return (dispatch, getState)=> {
         let auth = getState().auth.authenticated;
         if (!auth.profile.updated_at) {
-            dispatch({
+          Auth.getProfile(auth.user.uid).then(function(result){
+            if(result){
+              dispatch({
                 type: AUTH_GET_PROFILE,
                 AWAIT_MARKER,
                 payload: {
-                    getProfile: Auth.getProfile(auth.user.uid)
+                    getProfile: result
                 }
-            });
+              });
+            }
+          else{
+              // oops
+              console.log("oops")
+          }
+          })
+
+            
         }
     }
 }
 
 export function checkToken() {
     return (dispatch) => {
-        dispatch({
-            type: AUTH_CHECK_TOKEN,
-            AWAIT_MARKER,
-            payload: {
-                userFromToken: Auth.isAuthenticated()
-            }
-        })
+      let user = Auth.isAuthenticated();
+      user.then(function(result){
+        if(result){
+            dispatch({
+                type: AUTH_CHECK_TOKEN,
+                AWAIT_MARKER,
+                payload: {
+                    userFromToken: result,
+                    guest: false
+                }
+            })
+          }
+        else{
+          dispatch({
+                type: AUTH_CHECK_TOKEN,
+                AWAIT_MARKER,
+                payload: {
+                    userFromToken: {},
+                    guest: true
+                }
+            })
+
+        }
+      })
     }
 }
 

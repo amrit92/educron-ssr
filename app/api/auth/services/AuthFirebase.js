@@ -73,7 +73,7 @@ export default class AuthFirebase {
             if (user) {
                 resolve(this.cleanUser(user));
             }
-            else reject('not auth token');
+            else resolve(user);
         }.bind(this));
         return promise;
     }
@@ -128,13 +128,11 @@ export default class AuthFirebase {
      */
     getProfile(uid) {
         let promise = new Promise(function (resolve, reject) {
-          try {
-             let userProfile = firebase.child('users').child(uid);
-         } catch (e) {
-          reject(e);
-         }
+           let userProfile = firebase.child('users').child(uid);
+
             userProfile.on("value", (snapshot)=> {
                 let profile = snapshot.val();
+                console.log(profile);
                 resolve(profile);
             }, (error)=> {
                 reject(error);

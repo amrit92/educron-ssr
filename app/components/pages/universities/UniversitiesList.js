@@ -5,7 +5,7 @@ import ReactTypeahead from 'react-typeahead';
 import CustomTypeaheadList from '../../CustomTypeaheadList'
 import Autosuggest from 'react-autosuggest';
 import {getSuggestions, getSuggestionValue, renderSuggestion} from '../../helpers/AutosuggestHelper';
-import {hashHistory} from 'react-router'
+import {browserHistory} from 'react-router'
 import UniversityApi from '../../../api/university/index';
 
 
@@ -34,7 +34,7 @@ export default class UniversitiesList extends Component {
     //     });
     //   }
     onSuggestionSelected(event, { suggestion, suggestionValue, sectionIndex, method }) {
-        hashHistory.push('universities/' + suggestion.id);
+        browserHistory.push('universities/' + suggestion.id);
       }
 
     componentDidUpdate() {
@@ -86,6 +86,7 @@ export default class UniversitiesList extends Component {
                       }}/>
                       
                   </div>
+                  <p> yayadadsfadfasfsadfadsf</p>
                 </div>
             </WrapContainer>
         )

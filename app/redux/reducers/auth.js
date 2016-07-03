@@ -7,6 +7,7 @@ import {
 } from '../actions/AuthAction';
 import update from 'react-addons-update';
 import {createReducer} from 'redux-create-reducer';
+import { REHYDRATE } from 'redux-persist/constants'
 
 /*let initinalState = {
  isAuthenticated:
@@ -31,11 +32,18 @@ const getInitialState = () => {
         },
         logout: {
             isFetching: false,
-        }
+        },
+        rehydrated: false
     }
 }
 
 export default createReducer(getInitialState(), {
+    [REHYDRATE](state, action){
+      return update(state, {
+        rehydrated: {$set: true}
+      })
+    },
+
     [AUTH_LOGIN](state, action){
         localStorage.setItem('authenticated', JSON.stringify(action.payload.userLogin));
         return update(state, {
@@ -75,7 +83,7 @@ export default createReducer(getInitialState(), {
     [AUTH_CHECK_TOKEN](state, action){
         return update(state, {
             authenticated: {
-                guest: {$set: false},
+                guest: {$set: action.payload.guest},
                 user: {$set: action.payload.userFromToken}
             }
         });
