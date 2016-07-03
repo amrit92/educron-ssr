@@ -48,7 +48,7 @@ const restHostPort = process.env.SERVER_PROTOCOL || "1337";
 
 //creating hapi server - popping my cherry with hapi on this one - im more of an express kinda guy.
 const server = new Server();
-server.connection({host: hostname, port: process.env.PORT || 8000});
+server.connection({host: hostname, port: 8080});
 server.register(
   [
     h2o2,
