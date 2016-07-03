@@ -86,7 +86,7 @@ export default class UniversitiesList extends Component {
                       }}/>
                       
                   </div>
-                  <p> yayadadsfadfasfsadfadsf</p>
+                  <p> welcome to educron</p>
                 </div>
             </WrapContainer>
         )
