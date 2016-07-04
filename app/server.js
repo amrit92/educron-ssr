@@ -41,7 +41,7 @@ const store = configureStore();
 const initialState = store.getState();
 
 //from environment variable grab our data and the backend data
-const hostname = process.env.HOSTNAME || "localhost";
+const hostname = process.env.OPENSHIFT_NODEJS_IP || "localhost";
 const restHostUrl = process.env.SERVER_URL || "localhost";
 const restHostProtocol = process.env.SERVER_PROTOCOL || "http";
 const restHostPort = process.env.SERVER_PROTOCOL || "1337";
