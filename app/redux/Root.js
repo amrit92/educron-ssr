@@ -4,7 +4,6 @@ import configureStore from './store/configureStore';
 import {Router, Route, hashHistory, browserHistory} from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import Routes from '../routes';
-import saveStore from './store/saveStore';
 import {persistStore, autoRehydrate, storages} from 'redux-persist'
 
 

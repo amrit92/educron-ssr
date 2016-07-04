@@ -125,6 +125,7 @@ server.ext("onPreResponse", (request, reply) => {
     <html lang="en-us">
       <head>
         <meta charset="utf-8">
+        <meta name="google-site-verification" content="n2Tv2hacpBnKwPtf4TzF0v7kAhC8p2P7rKmjiq82VUQ" />
         <title>Hapi Universal Redux</title>
         <link rel="shortcut icon" href="/favicon.ico">
         <link rel="stylesheet" href="${webserver}/dist/client.css" />
