@@ -22,7 +22,7 @@
   ],
   "main": "dist/server.js",
   "scripts": {
-    "start": "NODE_ENV=production npm run build &&  NODE_ENV=production node ./dist/server.js",
+    "start": "NODE_ENV=production npm run build && NODE_ENV=production node ./dist/server.js",
     "build-server": "webpack --colors --display-error-details --config configs/webpack.server.js",
     "build-client": "webpack --colors --display-error-details --config configs/webpack.client.js",
     "build": "concurrently \"npm run build-server\" \"npm run build-client\"",
